@@ -142,25 +142,29 @@ const getCourseDetailWithPurchaseStatus = async (req, res) => {
   try {
     const { courseId } = req.params;
     const userId = req.userId;
-
+    
+    // Find course by ID and populate creator and lectures
     const course = await Course.findById(courseId)
       .populate({ path: "creator" })
       .populate({ path: "lectures" });
 
-    const purchased = await CoursePurchase.findOne({ userId, courseId, status:"completed" });
-    console.log(purchased);
-
+    // If course not found, return error
     if (!course) {
       return res.status(404).json({ message: "course not found!" });
     }
-    console.log("purchased",purchased.status)
+
+    // Find purchase status for the course and user
+    const purchased = await CoursePurchase.findOne({ userId, courseId , status:"completed"});
+
+    // Return response with course details and purchase status
     return res.status(200).json({
       course,
-      status:purchased.status, // payment status
-      purchased: !!purchased, // true if purchased, false otherwise
+      status: purchased ? purchased.status : 'not purchased',  // Default value for status
+      purchased: !!purchased,  // true if purchased, false otherwise
     });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
