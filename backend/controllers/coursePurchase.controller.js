@@ -142,7 +142,7 @@ const getCourseDetailWithPurchaseStatus = async (req, res) => {
   try {
     const { courseId } = req.params;
     const userId = req.userId;
-    
+
     // Find course by ID and populate creator and lectures
     const course = await Course.findById(courseId)
       .populate({ path: "creator" })
@@ -154,7 +154,7 @@ const getCourseDetailWithPurchaseStatus = async (req, res) => {
     }
 
     // Find purchase status for the course and user
-    const purchased = await CoursePurchase.findOne({ userId, courseId , status:"completed"});
+    const purchased = await CoursePurchase.findOne({ userId, courseId, status: "completed" });
 
     // Return response with course details and purchase status
     return res.status(200).json({
@@ -173,8 +173,17 @@ const getAllPurchasedCourse = async (req, res) => {
     const userId = req.userId;
     const purchasedCourse = await CoursePurchase.find({
       status: "completed",
-      userId:userId           // Additional feature: Filter by userId so that only the requested user (instructor) can view their purchase details.
-    }).populate("courseId");
+      userId: userId           // Additional feature: Filter by userId so that only the requested user (instructor) can view their purchase details.
+    }).populate({ 
+      path: "courseId",
+      populate:{                // Additional feature : this is addtional part for enroll student name and photoUrl find perporse
+        path:"enrolledStudents",
+        select: "name email photoUrl -_id"
+      }
+     });
+
+    //  console.log("purchasedCourse details",purchasedCourse) 
+
     if (!purchasedCourse) {
       return res.status(404).json({
         purchasedCourse: [],

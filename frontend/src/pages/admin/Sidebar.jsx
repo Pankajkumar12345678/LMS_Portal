@@ -1,4 +1,4 @@
-import { ChartNoAxesColumn, SquareLibrary } from "lucide-react";
+import { ChartNoAxesColumn, SquareLibrary,Users } from "lucide-react";
 import { Link, Outlet } from "react-router-dom";
 
 const Sidebar = () => {
@@ -14,6 +14,14 @@ const Sidebar = () => {
             <SquareLibrary size={22} />
             <h1>Courses</h1>
           </Link>
+
+          {/* Total Enrolled Student in instructor course */}
+
+          <Link to="enrolledStudent" className="flex items-center gap-2">
+            <Users size={22} />
+            <h1>Enrolled Students</h1>
+          </Link>
+          
         </div>
       </div>
     <div className="flex-1 p-10 ">

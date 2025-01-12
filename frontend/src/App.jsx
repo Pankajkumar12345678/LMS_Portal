@@ -28,6 +28,7 @@ import CourseDetail from "./pages/student/CourseDetail";
 import CourseProgress from "./pages/student/CourseProgress";
 import SearchPage from "./pages/student/SearchPage";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
+import EnrolledStudents from "./pages/admin/course/EnrolledStudents";
 
 
 // protect routes that require authentication
@@ -198,7 +199,11 @@ function App() {
 						},
 						{
 							path: "course",
-							element: <CourseTable />,
+							element: <CourseTable />,   //enrolledStudent
+						},
+						{
+							path: "enrolledStudent",
+							element: <EnrolledStudents/>,   
 						},
 						{
 							path: "course/create",
