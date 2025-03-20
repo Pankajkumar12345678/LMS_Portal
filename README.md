@@ -49,33 +49,38 @@ git clone https://github.com/your-username/lms-mern-portal.git
 cd lms-mern-portal
 2️⃣ Install Dependencies
 Backend:
+sh
+
 cd backend
 npm install
 
 Frontend:
+sh
+
 cd ../frontend
 npm install
-
 3️⃣ Set Up Environment Variables
 Create a .env file inside the backend folder and add:
 
 
-PORT=8084
+PORT=5000
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
 CLOUDINARY_API_KEY=your_cloudinary_api_key
 STRIPE_SECRET_KEY=your_stripe_secret_key
 
-
 4️⃣ Start the Development Server
 Run Backend:
+sh
+
 cd backend
 npm run dev
 
 Run Frontend:
+sh
+
 cd frontend
 npm start
-
 5️⃣ Open in Browser
 Visit http://localhost:3000 to explore the LMS Portal.
 
